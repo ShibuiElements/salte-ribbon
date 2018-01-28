@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>shibui-ribbon test</title>
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+
+    <link rel="import" href="../shibui-ribbon.html">
+  </head>
+  <body>
+    <test-fixture id="basic">
+      <template>
+        <shibui-ribbon>
+          Alpha
+        </shibui-ribbon>
+      </template>
+    </test-fixture>
+
+    <script>
+      suite('shibui-ribbon', function() {
+        var element;
+        setup(function() {
+          element = fixture('basic');
+        });
+
+        test('the ribbon supports custom background and text colors', function() {
+          element.backgroundColor = 'black';
+          element.color = 'white';
+
+          expect(element.$.ribbon.style.backgroundColor).to.equal('black');
+          expect(element.$.ribbon.style.color).to.equal('white');
+        });
+      });
+    </script>
+  </body>
+</html>

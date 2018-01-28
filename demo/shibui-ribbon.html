@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>shibui-ribbon demo</title>
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="../shibui-ribbon.html">
+
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+
+    <custom-style>
+      <style is="custom-style" include="demo-pages-shared-styles">
+        body {
+          display: block;
+          font-family: sans-serif;
+        }
+
+        shibui-ribbon {
+          position: absolute;
+        }
+
+        demo-snippet {
+          --demo-snippet-demo: {
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+          };
+        }
+      </style>
+    </custom-style>
+  </head>
+  <body>
+    <div class="vertical-section-container centered">
+      <h3>Can be aligned in any corner</h3>
+      <demo-snippet>
+        <template>
+          <shibui-ribbon>Alpha</shibui-ribbon>
+          <shibui-ribbon vertical-alignment="bottom">Beta</shibui-ribbon>
+          <shibui-ribbon vertical-alignment="bottom" horizontal-alignment="left">Gamma</shibui-ribbon>
+          <shibui-ribbon horizontal-alignment="left">Delta</shibui-ribbon>
+        </template>
+      </demo-snippet>
+    </div>
+    <div class="vertical-section-container centered">
+      <h3>Can support custom background colors and text colors</h3>
+      <demo-snippet>
+        <template>
+          <shibui-ribbon background-color="rebeccapurple" color="white">
+            Alpha
+          </shibui-ribbon>
+        </template>
+      </demo-snippet>
+    </div>
+  </body>
+</html>

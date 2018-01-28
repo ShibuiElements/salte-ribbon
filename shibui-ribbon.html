@@ -1,0 +1,146 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<!--
+`shibui-ribbon` is a simple and modern ribbon inspired by the ribbons provided by [GitHub](https://github.com/blog/273-github-ribbons).
+
+Example:
+
+    <shibui-ribbon>Alpha</shibui-ribbon>
+
+### Styling
+
+The following custom properties and mixins are also available for styling:
+
+Custom property | Description | Default
+----------------|-------------|----------
+`--shibui-ribbon-default-background-color` | A property that controls the default background color of the ribbon if one isn't provided | `#fafafa`
+`--shibui-ribbon-default-color` | A property that controls the default text color of the ribbon if one isn't provided | `#333`
+
+@demo demo/shibui-ribbon.html Demo
+-->
+
+<dom-module id="shibui-ribbon">
+  <template strip-whitespace>
+    <style>
+      :host {
+        position: fixed;
+        z-index: 9999;
+        width: 80px;
+        height: 80px;
+        pointer-events: none;
+        user-select: none;
+        opacity: 1;
+
+        transform: rotate(45deg);
+        transition: opacity 0.15s ease-in-out;
+      }
+
+      :host(:hover) {
+        opacity: 0.75;
+      }
+
+      :host([hidden]) #ribbon {
+        display: none;
+      }
+
+      #ribbon {
+        font: bold 15px Sans-Serif;
+        text-align: center;
+        position: relative;
+        padding: 7px 0;
+        width: 150px;
+        box-shadow: 0px 0px 3px rgba(0,0,0,0.3);
+        pointer-events: all;
+        text-transform: uppercase;
+
+        transform: translate(-50%, -50%);
+        left: 50%;
+        top: 50%;
+
+        background-color: var(--shibui-ribbon-default-background-color, #fafafa);
+        color: var(--shibui-ribbon-default-color, #333);
+      }
+
+      :host([vertical-alignment="bottom"][horizontal-alignment="right"]), :host([vertical-alignment="top"][horizontal-alignment="left"]) {
+        transform: rotate(-45deg);
+      }
+
+      :host([vertical-alignment="bottom"]) {
+        bottom: -10px;
+      }
+
+      :host([vertical-alignment="top"]) {
+        top: -10px;
+      }
+
+      :host([horizontal-alignment="left"]) {
+        left: -10px;
+      }
+
+      :host([horizontal-alignment="right"]) {
+        right: -10px;
+      }
+    </style>
+    <div id="ribbon">
+      <slot></slot>
+    </div>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'shibui-ribbon',
+
+      properties: {
+        /**
+         * The background color of the ribbon
+         */
+        backgroundColor: {
+          type: String,
+          observer: '_backgroundColorChanged'
+        },
+
+        /**
+         * The text color of the ribbon
+         */
+        color: {
+          type: String,
+          observer: '_colorChanged'
+        },
+
+        /**
+         * Whether the ribbon should be hidden or visible
+         */
+        hidden: {
+          type: Boolean,
+          reflectToAttribute: true
+        },
+
+        /**
+         * Whether the ribbon should be aligned at the 'top' or 'bottom'
+         */
+        verticalAlignment: {
+          type: String,
+          value: 'top',
+          reflectToAttribute: true
+        },
+
+        /**
+         * Whether the ribbon should be aligned on the 'left' or 'right'
+         */
+        horizontalAlignment: {
+          type: String,
+          value: 'right',
+          reflectToAttribute: true
+        }
+      },
+
+      _backgroundColorChanged: function(backgroundColor) {
+        this.$.ribbon.style.backgroundColor = backgroundColor || this.defaultBackgroundColor;
+      },
+
+      _colorChanged: function(color) {
+        this.$.ribbon.style.color = color || this.defaultColor;
+      }
+    });
+  </script>
+</dom-module>
