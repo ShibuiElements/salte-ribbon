@@ -1,10 +1,9 @@
 language: node_js
 node_js: stable
 dist: trusty
-sudo: false
+sudo: required
 cache:
   directories:
-    - $(npm config get prefix)
     - bower_components
 branches:
   only:
