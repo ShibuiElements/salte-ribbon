@@ -1,21 +1,26 @@
 language: node_js
 node_js: stable
 dist: trusty
-sudo: false
+sudo: required
 cache:
   directories:
-    - $(npm config get prefix)
     - bower_components
 branches:
   only:
     - master
+addons:
+  firefox: latest
+  apt:
+    sources:
+      - google-chrome
+    packages:
+      - google-chrome-stable
+  sauce_connect: true
 before_script:
   - npm install -g polymer-cli
   - polymer install --variants
 script:
-  - polymer test -s 'default'
+  - xvfb-run polymer test
+  - if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then polymer test -s 'default'; fi
 notifications:
   email: change
-addons:
-  jwt:
-    secure: CeAuU3NKDJxKaqI/EnxaQTXATowHK8yMrZXUdwYvjq7W+K7qDPz+PbTQhyx9cjoCbbbWnXJ1Ts1TuhrQWMYJR/ke5WGK35BI5NfRH+BGlp4vqpreS8c+Rwd5OcNx+Yb+Uk6G1p6NC0bSKL2zOYs8Xa6p/xLQeKITbbYbG4rYxZHm4yQ7nfHpfD7M+j6oXndcXZX8ZkYXnQcdFnNCb4coAn1d5iIuSjRfpne2RsIivVbuSbWVxIr1M5nO8e74PNY59SGj4T2bubbFNxb9Rn/Vkf9ZGTXkaErTtktS5JIByVewNaLHCnw44k0mJutu4Vz/2fWFx4viLv/uDs6tGq9RvR6ACAIVGDK8HTTQ05LmW7Mtur3xYf4UOSt0Y0ip7vUdDk14ayjklqV3w0QuSF054nZQ/NRrBdZSY7Y7EL1md2dHMFy4tJ4o+IXI/T3hphEuELXLjoKLuzZrT8N69jQ6v+jJS+J6LfKrJ5NfmoUP138+FxZT1nI/mOctdTuA2ZHeXINuHdxpgUoly4gtjmtt5wHBtcV5KJj0B5w2fSVJt3GsdiCXpBuLlOESO9XrCmb9rSIIY3omoacZ9EtYiEEcbaxbm5lwGWW3p2NgjUJvyWHDJMUua9H5/0LkrI7ewewskHAkZ3+BX0tFAn63MGFFHApSRJ2QJrI9PNWX2h9VMTA=
